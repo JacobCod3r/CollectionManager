@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CollectionManager.Views.CollectionSummaryPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Podsumowanie"
+    BackgroundColor="{StaticResource BackgroundColor}">
+
+    <ContentPage.Resources>
+        <StyleSheet Source="/Resources/Styles/app.css" />
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+
+            <Label
+                Text="Podsumowanie kolekcji"
+                StyleClass="pageTitle" />
+
+            <Frame StyleClass="summaryCard">
+                <VerticalStackLayout>
+                    <Label Text="Liczba wszystkich elementów" FontAttributes="Bold" TextColor="{StaticResource TextColor}" />
+                    <Label Text="{Binding TotalItems}" FontSize="28" TextColor="{StaticResource PrimaryColor}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame StyleClass="summaryCard">
+                <VerticalStackLayout>
+                    <Label Text="Sprzedane" FontAttributes="Bold" TextColor="{StaticResource TextColor}" />
+                    <Label Text="{Binding SoldItems}" FontSize="28" TextColor="{StaticResource DangerColor}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame StyleClass="summaryCard">
+                <VerticalStackLayout>
+                    <Label Text="Na sprzedaż" FontAttributes="Bold" TextColor="{StaticResource TextColor}" />
+                    <Label Text="{Binding ForSaleItems}" FontSize="28" TextColor="{StaticResource PrimaryColor}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame StyleClass="summaryCard">
+                <VerticalStackLayout>
+                    <Label Text="Chcę kupić" FontAttributes="Bold" TextColor="{StaticResource TextColor}" />
+                    <Label Text="{Binding WantedItems}" FontSize="28" TextColor="{StaticResource SecondaryColor}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame StyleClass="summaryCard">
+                <VerticalStackLayout>
+                    <Label Text="Łączna wartość kolekcji" FontAttributes="Bold" TextColor="{StaticResource TextColor}" />
+                    <Label Text="{Binding TotalValue, StringFormat='{0:F2} zł'}" FontSize="28" TextColor="{StaticResource PrimaryColor}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame StyleClass="summaryCard">
+                <VerticalStackLayout>
+                    <Label Text="Średnia ocena" FontAttributes="Bold" TextColor="{StaticResource TextColor}" />
+                    <Label Text="{Binding AverageRating}" FontSize="28" TextColor="{StaticResource SecondaryColor}" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

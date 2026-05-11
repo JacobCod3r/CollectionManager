@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CollectionManager.Views.CollectionDetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="ThisPage"
+    Title="Szczegóły kolekcji"
+    BackgroundColor="{StaticResource BackgroundColor}">
+
+    <ContentPage.Resources>
+        <StyleSheet Source="/Resources/Styles/app.css" />
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="16" RowSpacing="12">
+
+        <VerticalStackLayout Spacing="6">
+
+            <Label
+                Text="{Binding Collection.Name}"
+                StyleClass="pageTitle" />
+
+            <Label
+                Text="{Binding Collection.Type, StringFormat='Typ: {0}'}"
+                TextColor="{StaticResource MutedTextColor}"
+                FontSize="16" />
+
+            <Label
+                Text="{Binding Collection.Description, StringFormat='Opis: {0}'}"
+                TextColor="{StaticResource MutedTextColor}"
+                FontSize="16" />
+
+        </VerticalStackLayout>
+
+        <HorizontalStackLayout Grid.Row="1" Spacing="10">
+            <Button
+                Text="Dodaj element"
+                Command="{Binding AddItemCommand}"
+                BackgroundColor="{StaticResource PrimaryColor}" />
+
+            <Button
+                Text="Podsumowanie"
+                Command="{Binding SummaryCommand}"
+                BackgroundColor="{StaticResource SecondaryColor}" />
+        </HorizontalStackLayout>
+
+        <CollectionView
+            Grid.Row="2"
+            ItemsSource="{Binding Items}"
+            SelectionMode="None">
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout Padding="20" Spacing="8">
+                    <Label Text="Brak elementów w kolekcji." FontAttributes="Bold" TextColor="{StaticResource TextColor}" />
+                    <Label Text="Dodaj pierwszy element przyciskiem powyżej." TextColor="{StaticResource MutedTextColor}" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Frame StyleClass="card" Margin="0,0,0,12">
+
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame" Binding="{Binding IsSold}" Value="True">
+                                <Setter Property="Opacity" Value="0.50" />
+                            </DataTrigger>
+                        </Frame.Triggers>
+
+                        <VerticalStackLayout Spacing="8">
+
+                            <Label
+                                Text="{Binding Name}"
+                                FontSize="22"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource TextColor}" />
+
+                            <Label
+                                Text="{Binding Price, StringFormat='Cena: {0:F2} zł'}"
+                                TextColor="{StaticResource TextColor}" />
+
+                            <Label
+                                Text="{Binding StatusText, StringFormat='Status: {0}'}"
+                                TextColor="{StaticResource MutedTextColor}" />
+
+                            <Label
+                                Text="{Binding Rating, StringFormat='Ocena: {0}/10'}"
+                                TextColor="{StaticResource MutedTextColor}" />
+
+                            <Label
+                                Text="{Binding Comment, StringFormat='Komentarz: {0}'}"
+                                TextColor="{StaticResource MutedTextColor}"
+                                LineBreakMode="WordWrap" />
+
+                            <HorizontalStackLayout Spacing="8">
+                                <Button
+                                    Text="Edytuj"
+                                    Command="{Binding BindingContext.EditItemCommand, Source={x:Reference ThisPage}}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="{StaticResource PrimaryColor}" />
+
+                                <Button
+                                    Text="Usuń"
+                                    Command="{Binding BindingContext.DeleteItemCommand, Source={x:Reference ThisPage}}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="{StaticResource DangerColor}" />
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+
+                    </Frame>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="CollectionManager.Views.CollectionsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="ThisPage"
+    Title="Kolekcje"
+    BackgroundColor="{StaticResource BackgroundColor}">
+
+    <ContentPage.Resources>
+        <StyleSheet Source="/Resources/Styles/app.css" />
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="16" RowSpacing="12">
+
+        <Label
+            Text="System zarządzania kolekcjonerstwem"
+            StyleClass="pageTitle" />
+
+        <HorizontalStackLayout Grid.Row="1" Spacing="10">
+            <Button
+                Text="Dodaj kolekcję"
+                Command="{Binding AddCollectionCommand}"
+                BackgroundColor="{StaticResource PrimaryColor}" />
+
+            <Button
+                Text="Importuj"
+                Command="{Binding ImportCollectionCommand}"
+                BackgroundColor="{StaticResource SecondaryColor}" />
+        </HorizontalStackLayout>
+
+        <CollectionView
+            Grid.Row="2"
+            ItemsSource="{Binding Collections}"
+            SelectionMode="None">
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout Padding="20" Spacing="8">
+                    <Label Text="Brak kolekcji." FontAttributes="Bold" TextColor="{StaticResource TextColor}" />
+                    <Label Text="Dodaj pierwszą kolekcję przyciskiem powyżej." TextColor="{StaticResource MutedTextColor}" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame StyleClass="card" Margin="0,0,0,12">
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <Label
+                                Text="{Binding Name}"
+                                FontSize="24"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource TextColor}" />
+
+                            <Label
+                                Text="{Binding Type, StringFormat='Typ: {0}'}"
+                                TextColor="{StaticResource MutedTextColor}"
+                                FontSize="15" />
+
+                            <Label
+                                Text="{Binding Description, StringFormat='Opis: {0}'}"
+                                TextColor="{StaticResource MutedTextColor}"
+                                FontSize="15" />
+
+                            <Label
+                                Text="{Binding ItemsCount, StringFormat='Liczba elementów: {0}'}"
+                                TextColor="{StaticResource MutedTextColor}"
+                                FontSize="15" />
+
+                            <HorizontalStackLayout Spacing="8">
+                                <Button
+                                    Text="Otwórz"
+                                    Command="{Binding BindingContext.OpenCollectionCommand, Source={x:Reference ThisPage}}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="{StaticResource PrimaryColor}" />
+
+                                <Button
+                                    Text="Edytuj"
+                                    Command="{Binding BindingContext.EditCollectionCommand, Source={x:Reference ThisPage}}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="{StaticResource SecondaryColor}" />
+
+                                <Button
+                                    Text="Eksportuj"
+                                    Command="{Binding BindingContext.ExportCollectionCommand, Source={x:Reference ThisPage}}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="{StaticResource SecondaryColor}" />
+
+                                <Button
+                                    Text="Usuń"
+                                    Command="{Binding BindingContext.DeleteCollectionCommand, Source={x:Reference ThisPage}}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="{StaticResource DangerColor}" />
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

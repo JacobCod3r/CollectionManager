@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="CollectionManager.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:CollectionManager.Views"
+    Title="CollectionManager"
+    Shell.BackgroundColor="{StaticResource BackgroundColor}"
+    Shell.ForegroundColor="{StaticResource TextColor}"
+    Shell.TitleColor="{StaticResource TextColor}"
+    Shell.DisabledColor="{StaticResource MutedTextColor}"
+    Shell.UnselectedColor="{StaticResource MutedTextColor}"
+    Shell.NavBarHasShadow="False">
+
+    <ShellContent
+        Title="Kolekcje"
+        ContentTemplate="{DataTemplate views:CollectionsPage}" />
+
+</Shell>
